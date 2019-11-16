@@ -1,5 +1,5 @@
 class TicTacToe
-  attr_reader :board, :input
+  attr_reader :board, :input, :token, :position, :valid_move
 
   def initialize
     @board = Array.new(9, " ")
@@ -43,14 +43,15 @@ class TicTacToe
   
   def turn
     input = gets.chomp
-    position = self.input_to_index(input)
+    @position = input_to_index(input)
+    @valid_move = valid_move?(position)
+    @token = current_player
     
-    if self.valid_move?(position) == false
-      puts "invalid"
-      input
+    if valid_move
+      move(position, token)
     else 
-      token = current_player
-      self.move(position, token)
+      puts "invalid"
+      input = gets.chomp
     end 
     display_board
   end   
