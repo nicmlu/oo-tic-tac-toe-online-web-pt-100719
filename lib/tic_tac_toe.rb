@@ -82,8 +82,8 @@ class TicTacToe
         false
       end 
     end
-      combo
     end
+    combo
   end
   
   def full?
