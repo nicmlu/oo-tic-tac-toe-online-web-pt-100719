@@ -80,7 +80,7 @@ class TicTacToe
       # elsif position_taken?(combo) == true 
       else
         false
-      end 
+        end 
       end
     end
   end
