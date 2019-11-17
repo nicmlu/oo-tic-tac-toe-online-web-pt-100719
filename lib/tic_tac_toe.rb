@@ -74,7 +74,8 @@ class TicTacToe
   
   def won?
     WIN_COMBINATIONS.each do |combo|
-      if position_taken?(combo) == true 
+      combo.each do |combo_index|
+      if position_taken?(combo_index) == true 
         true
       # elsif position_taken?(combo) == true 
       else
