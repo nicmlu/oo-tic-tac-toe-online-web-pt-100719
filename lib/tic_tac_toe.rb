@@ -1,3 +1,4 @@
+require 'pry'
 class TicTacToe
   attr_reader :board, :input, :token, :position, :valid_move
 
@@ -34,7 +35,7 @@ class TicTacToe
   end 
   
   def valid_move?(position)
-    if @board[position] == " " && position = (1..9)
+    if @board[position] == " " && position.between?(0,8)
       true
     else
       false
@@ -48,10 +49,10 @@ class TicTacToe
     @token = current_player
     
     if valid_move
-      move(position, token)
+      move(@position, @token)
     else 
       puts "invalid"
-      input = gets.chomp
+      turn
     end 
     display_board
   end   
@@ -72,4 +73,64 @@ class TicTacToe
   self.turn_count % 2 == 0 ? "X" : "O"
   end 
   
+  def won?
+    WIN_COMBINATIONS.each do |combo|
+      if (@board[combo[0]]) == "X" && (@board[combo[1]]) == "X" && (@board[combo[2]]) == "X" 
+        # binding.pry
+        return combo 
+      elsif (@board[combo[0]]) == "O" && (@board[combo[1]]) == "O" && (@board[combo[2]]) == "O"
+        return combo 
+      end 
+    end
+    return false
+  end
+  
+  def full?
+    if turn_count == 9
+      true
+    else
+      false
+    end
+  end 
+  
+  def draw?
+    if turn_count == 9 && won? == false
+      true  
+    elsif won? == true
+      false
+    else  turn_count < 9 && won? == false 
+      false
+    end 
+  end 
+  
+  def over?
+    if won? != false
+      true
+    elsif draw? == true 
+      true
+    else       
+      false
+    end 
+  end 
+  
+  def winner
+    if won? == false
+      nil
+    elsif turn_count % 2 == 0 
+      "O"
+    else  
+      "X"
+    end 
+  end 
+  
+  def play
+    until over?
+    turn
+    end
+    if won?
+      puts "Congratulations #{winner}!"
+    else draw?
+      puts "Cat's Game!"
+    end
+  end   
 end 
