@@ -81,6 +81,7 @@ class TicTacToe
       else
         false
       end 
+    end
       combo
     end
   end
