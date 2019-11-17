@@ -34,7 +34,7 @@ class TicTacToe
   end 
   
   def valid_move?(position)
-    if @board[position] == " " && position = (1..9)
+    if @board[position] == " " && position.between?(0,8)
       true
     else
       false
@@ -48,10 +48,10 @@ class TicTacToe
     @token = current_player
     
     if valid_move
-      move(position, token)
+      move(@position, @token)
     else 
       puts "invalid"
-      input = gets.chomp
+      turn
     end 
     display_board
   end   
@@ -70,6 +70,47 @@ class TicTacToe
   
   def current_player 
   self.turn_count % 2 == 0 ? "X" : "O"
+  end 
+  
+  def won?
+    WIN_COMBINATIONS.each do |combo|
+      if position_taken?(combo) == true 
+        true
+      # elsif position_taken?(combo) == true 
+      else
+        false
+      end 
+      combo
+    end
+  end
+  
+  def full?
+    if turn_count == 9
+      true
+    else
+      false
+    end
+  end 
+  
+  def draw?
+    if turn_count == 9 && won? == false
+      true  
+    elsif won? == true
+      false
+    else  turn_count < 9 && won? == false 
+      false
+    end 
+  end 
+  
+  def over?
+    if won? == true || draw? == true 
+      true
+    else       
+      false
+    end 
+  end 
+  
+  def winner
   end 
   
 end 
