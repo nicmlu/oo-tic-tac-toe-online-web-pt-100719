@@ -77,7 +77,7 @@ class TicTacToe
       combo.each do |combo_index|
       if position_taken?(combo_index) == true 
         true
-      # elsif position_taken?(combo) == true 
+      # elsif position_taken?(combo_index) == true 
       else
         false
         end 
